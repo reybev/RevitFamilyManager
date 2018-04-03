@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+  <AddIn Type="Command">
+    <Text>Command RevitFamilyManager</Text>
+    <Description>Some description for RevitFamilyManager</Description>
+    <Assembly>RevitFamilyManager.dll</Assembly>
+    <FullClassName>RevitFamilyManager.Command</FullClassName>
+    <ClientId>74ee14aa-0e67-4772-9cfc-58829e9d2910</ClientId>
+    <VendorId>com.typepad.thebuildingcoder</VendorId>
+    <VendorDescription>The Building Coder, http://thebuildingcoder.typepad.com</VendorDescription>
+  </AddIn>
+  <AddIn Type="Application">
+    <Name>Application RevitFamilyManager</Name>
+    <Assembly>RevitFamilyManager.dll</Assembly>
+    <FullClassName>RevitFamilyManager.App</FullClassName>
+    <ClientId>8d54f145-5f7f-4758-9c65-f4a37ac2aeb8</ClientId>
+    <VendorId>com.typepad.thebuildingcoder</VendorId>
+    <VendorDescription>The Building Coder, http://thebuildingcoder.typepad.com</VendorDescription>
+  </AddIn>
+</RevitAddIns>
