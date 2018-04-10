@@ -18,7 +18,6 @@ namespace RevitFamilyManager.Families
             string path = GetDeviceFolder("Kabeltrassenformteile");
             string files = GetFamilyNames(path);
             TaskDialog.Show("Electrical Fixture Data", files);
-
             return Result.Succeeded;
         }
 
