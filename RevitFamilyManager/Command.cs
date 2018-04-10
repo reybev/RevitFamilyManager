@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
@@ -19,6 +20,13 @@ namespace RevitFamilyManager
           ref string message,
           ElementSet elements)
         {
+            var files = Directory.GetFiles(@"D:\2016.10.10 Familien Gianfranco\Allgemeines Modell");
+            string fileNames = string.Empty;
+            foreach (var file in files)
+            {
+                fileNames += file + "\n";
+            }
+            TaskDialog.Show("Collected Data", fileNames);
             UIApplication uiapp = commandData.Application;
             UIDocument uidoc = uiapp.ActiveUIDocument;
             Application app = uiapp.Application;

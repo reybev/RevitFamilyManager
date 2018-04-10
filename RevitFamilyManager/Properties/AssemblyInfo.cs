@@ -8,11 +8,11 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("RevitFamilyManager")]
 [assembly: AssemblyDescription("Revit Add-In Description for RevitFamilyManager")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Autodesk Inc.")]
+[assembly: AssemblyCompany("Global 17")]
 [assembly: AssemblyProduct("RevitFamilyManager Revit C# .NET Add-In")]
-[assembly: AssemblyCopyright("Copyright 2017 (C) Jeremy Tammik, Autodesk Inc.")]
+[assembly: AssemblyCopyright("Copyright 2018 (C) Roman Lavrov, Global 17")]
 [assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
+[assembly: AssemblyCulture("DE")]
 
 // Setting ComVisible to false makes the types in this assembly not visible
 // to COM components.  If you need to access a type in this assembly from
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2018.0.0.0")]
-[assembly: AssemblyFileVersion("2018.0.0.0")]
+[assembly: AssemblyVersion("2018.0.0.1")]
+[assembly: AssemblyFileVersion("2018.0.0.1")]

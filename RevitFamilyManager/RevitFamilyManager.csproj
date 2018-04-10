@@ -39,6 +39,7 @@
     <StartProgram>$(ProgramW6432)\Autodesk\Revit 2018\Revit.exe</StartProgram>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
     <Reference Include="RevitAPI">
       <HintPath>$(ProgramW6432)\Autodesk\Revit 2018\RevitAPI.dll</HintPath>
       <Private>False</Private>
@@ -48,14 +49,54 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
     <Compile Include="Command.cs" />
+    <Compile Include="Families\CableTray.cs" />
+    <Compile Include="Families\CableTrayFitting.cs" />
+    <Compile Include="Families\Communication.cs" />
+    <Compile Include="Families\Data.cs" />
+    <Compile Include="Families\ElectricalFixture.cs" />
+    <Compile Include="Families\Electroinstallation.cs" />
+    <Compile Include="Families\FireAlarm.cs" />
+    <Compile Include="Families\Lighting.cs" />
+    <Compile Include="Families\LightingFixture.cs" />
+    <Compile Include="Families\NurceCall.cs" />
+    <Compile Include="Families\Phone.cs" />
+    <Compile Include="Families\Security.cs" />
+    <Compile Include="PhoneFamilies.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Daten.png" />
+    <None Include="Resources\Electroinstallation.png" />
+    <None Include="Resources\ElektrischeAusstattung.png" />
+    <None Include="Resources\Kabeltrasse.png" />
+    <None Include="Resources\Kabeltrassenformteil.png" />
+    <None Include="Resources\Kommunication.png" />
+    <None Include="Resources\Leuchte.png" />
+    <None Include="Resources\Lichtschalter.png" />
+    <None Include="Resources\Notruf.png" />
+    <None Include="Resources\Sicherheit.png" />
+    <None Include="Resources\Telefon.png" />
+    <None Include="Resources\Brandmelder.png" />
     <Content Include="RevitFamilyManager.addin" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
