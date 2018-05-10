@@ -8,14 +8,13 @@ using RevitFamilyManager.Data;
 namespace RevitFamilyManager.Families
 {
     [Transaction(TransactionMode.Manual)]
-    class NurceCall : IExternalCommand
+    public class GenericModels : IExternalCommand
     {
-
         private string CategoryName { get; set; }
 
-        public NurceCall()
+        public GenericModels()
         {
-            CategoryName = "Notrufgeräte";
+            CategoryName = "Allgemeines Modell";
         }
 
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
@@ -34,6 +33,5 @@ namespace RevitFamilyManager.Families
             FamilyManagerDockable.WPFpanel.GenerateGrid(familyData);
             dp.Show();
         }
-
     }
 }

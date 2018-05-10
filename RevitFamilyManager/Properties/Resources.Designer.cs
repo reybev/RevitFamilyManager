@@ -83,6 +83,16 @@ namespace RevitFamilyManager.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Description {
+            get {
+                object obj = ResourceManager.GetObject("Description", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Electroinstallation {
             get {
                 object obj = ResourceManager.GetObject("Electroinstallation", resourceCulture);
@@ -96,6 +106,16 @@ namespace RevitFamilyManager.Properties {
         internal static System.Drawing.Bitmap ElektrischeAusstattung {
             get {
                 object obj = ResourceManager.GetObject("ElektrischeAusstattung", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap GenericModels {
+            get {
+                object obj = ResourceManager.GetObject("GenericModels", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -163,6 +183,16 @@ namespace RevitFamilyManager.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Settings {
+            get {
+                object obj = ResourceManager.GetObject("Settings", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Sicherheit {
             get {
                 object obj = ResourceManager.GetObject("Sicherheit", resourceCulture);
@@ -176,6 +206,16 @@ namespace RevitFamilyManager.Properties {
         internal static System.Drawing.Bitmap Telefon {
             get {
                 object obj = ResourceManager.GetObject("Telefon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap UpdateDB {
+            get {
+                object obj = ResourceManager.GetObject("UpdateDB", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
