@@ -63,7 +63,7 @@ namespace RevitFamilyManager.Data
                 }
                 else
                 {
-                    TaskDialog.Show("Already used family", "Start DB update in new document");
+                    TaskDialog.Show("Warning", "Can't load family into project or family alredy exists");
                     return null;
                 }
                 //TODO Resolve extra families in project

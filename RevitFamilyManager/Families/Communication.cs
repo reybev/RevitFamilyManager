@@ -83,6 +83,7 @@ namespace RevitFamilyManager.Families
                     if (item.Category == categoryName)
                     {
                         filteredList.Add(item);
+                        
                         temp += item.Category + " || " + item.FamilyName + "\n";
                     }
                 }

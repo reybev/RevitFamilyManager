@@ -1,12 +1,18 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Resources;
 using System.Windows;
 using Autodesk.Revit.UI;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using RevitFamilyManager.Data;
 
 namespace RevitFamilyManager
@@ -57,10 +63,12 @@ namespace RevitFamilyManager
             {
                 foreach (var type in item.FamilyTypeDatas)
                 {
+                    type.ImageUri = FindImageUri(type.Name);
                     familyTypes.Add(type);
+                   
                 }
             }
-
+           
             ListFamilyTypes = familyTypes;
             ObservableCollection<FamilyTypeData> collectionFamilyTypes = new ObservableCollection<FamilyTypeData>(familyTypes);
             FamiliesDataGrid.RowBackground = Brushes.WhiteSmoke;
@@ -137,17 +145,21 @@ namespace RevitFamilyManager
             if (this.BtnOverheadFilter.IsChecked == false)
             {
                 filterMount.AddRange(FilterMountType("AP"));
+                filterMount.AddRange(FilterMountType("NAP"));
             }
 
             if (this.BtnRecessedFilter.IsChecked == false)
             {
                 filterMount.AddRange(FilterMountType("UP"));
+                filterMount.AddRange(FilterPlacement("NUP"));
             }
 
             if (this.BtnOverheadFilter.IsChecked == true && BtnRecessedFilter.IsChecked == true)
             {
                 filterMount.AddRange(FilterMountType("AP"));
                 filterMount.AddRange(FilterMountType("UP"));
+                filterMount.AddRange(FilterPlacement("NAP"));
+                filterMount.AddRange(FilterPlacement("NUP"));
             }
 
             filterMount.AddRange(FilterMountType(" --- "));
@@ -291,6 +303,23 @@ namespace RevitFamilyManager
             }
         }
 
-        
+        private Uri FindImageUri(string typeName)
+        {
+            string assemblyFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            Uri uri = null;
+            var imageNames = Directory.GetFiles(Path.Combine(assemblyFolder, "Images"));
+            foreach (var item in imageNames)
+            {
+                if (item.Contains(typeName) && item.Contains("32") && !item.Contains("dark"))
+                {
+                    uri = new Uri(item);
+                }
+                if (uri == null)
+                {
+                    uri = new Uri("pack://application:,,,/RevitFamilyManager;component/Resources/RevitLogo.png");
+                }
+            }
+            return uri;
+        }
     }
 }

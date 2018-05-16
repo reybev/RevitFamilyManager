@@ -3,16 +3,28 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:data="clr-namespace:RevitFamilyManager.Data"
     xmlns:local="clr-namespace:RevitFamilyManager"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="300"
-    d:DesignWidth="300"
+    d:DesignWidth="500"
     Background="WhiteSmoke"
     mc:Ignorable="d">
 
 
     <UserControl.Resources>
-
+        <Style x:Key="Body_Content_DataGrid_Centering" TargetType="{x:Type DataGridCell}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type DataGridCell}">
+                        <Grid Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="FontSize" Value="12pt" />
+        </Style>
         <Style
             x:Key="ToggleButtonStyle"
             x:Name="MyToggleButton"
@@ -85,7 +97,8 @@
             <ColumnDefinition Width="25px" />
             <ColumnDefinition Width="25px" />
             <ColumnDefinition Width="24px" />
-            <ColumnDefinition Width="43px" />
+            <ColumnDefinition Width="24px" />
+            <ColumnDefinition Width="150" />
         </Grid.ColumnDefinitions>
 
         <Label
@@ -153,7 +166,7 @@
             x:Name="BtnFloorFilter"
             Grid.Row="1"
             Grid.Column="7"
-            HorizontalAlignment="Left"
+            HorizontalAlignment="Center"
             Checked="BtnFloorFilter_Checked"
             Content="B"
             Style="{StaticResource ToggleButtonStyle}"
@@ -162,11 +175,10 @@
         <ComboBox
             Name="ComboBoxInstallationMedium"
             Grid.Row="1"
-            Grid.Column="0"
-            Grid.ColumnSpan="2"
-            Width="130px"
+            Grid.Column="8"
+            Width="130"
             Height="22px"
-            Margin="5,0,0,0"
+            Margin="3,3,0,4"
             HorizontalAlignment="Left"
             IsEditable="True"
             IsReadOnly="True"
@@ -177,11 +189,13 @@
             x:Name="FamiliesDataGrid"
             Grid.Row="2"
             Grid.Column="0"
-            Grid.ColumnSpan="8"
+            Grid.ColumnSpan="9"
             MaxHeight="800"
+            VerticalContentAlignment="Center"
             AutoGenerateColumns="False"
             Background="WhiteSmoke"
             BorderThickness="0"
+            CellStyle="{StaticResource Body_Content_DataGrid_Centering}"
             EnableColumnVirtualization="false"
             EnableRowVirtualization="false"
             IsReadOnly="True"
@@ -192,16 +206,24 @@
             VerticalScrollBarVisibility="Visible">
 
             <DataGrid.Columns>
-                <DataGridTextColumn
-                    Width="120"
-                    MinWidth="130"
-                    MaxWidth="130"
-                    Binding="{Binding InstallationMedium}"
-                    Header="Installation Medium" />
+                <DataGridTemplateColumn
+                    Width="40"
+                    MinWidth="32"
+                    MaxWidth="40"
+                    Header="Bild">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image
+                                Width="35"
+                                MaxWidth="35"
+                                Source="{Binding (data:FamilyTypeData.ImageUri)}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn
                     Width="*"
                     Binding="{Binding Description}"
-                    Header="Beshreibung" />
+                    Header="Beschreibung" />
                 <DataGridTextColumn
                     Width="55"
                     MinWidth="55"
@@ -220,6 +242,18 @@
                     MaxWidth="75"
                     Binding="{Binding Placement}"
                     Header="">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn
+                    Width="120"
+                    MinWidth="130"
+                    MaxWidth="130"
+                    Binding="{Binding InstallationMedium}"
+                    Header="Installation Medium">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="HorizontalAlignment" Value="Center" />
