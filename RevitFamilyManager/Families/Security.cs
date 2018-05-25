@@ -29,7 +29,7 @@ namespace RevitFamilyManager.Families
         {
             DockablePaneId dpid = new DockablePaneId(new Guid("209923d1-7cdc-4a1c-a4ad-1e2f9aae1dc5"));
             DockablePane dp = commandData.Application.GetDockablePane(dpid);
-            FamilyManagerDockable.WPFpanel.CategoryName.Content = CategoryName;
+            FamilyManagerDockable.WPFpanel.CategoryName.Content = " " + CategoryName + " ";
             FamilyManagerDockable.WPFpanel.GenerateGrid(familyData);
             dp.Show();
         }

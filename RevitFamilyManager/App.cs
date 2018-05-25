@@ -3,6 +3,7 @@ using Autodesk.Revit.UI;
 using RevitFamilyManager.Properties;
 using System;
 using System.IO;
+using System.Net;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Media.Imaging;
@@ -17,13 +18,13 @@ namespace RevitFamilyManager
     {
         public Result OnStartup(UIControlledApplication a)
         {
-            string assemblyFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            string xmlFileName = Path.Combine(assemblyFolder, "FamilyData.xml");
-            if (!File.Exists(xmlFileName))
-            {
-                XmlWriter writer = XmlWriter.Create(xmlFileName);
-            }
-            
+            //string assemblyFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            //string xmlFileName = Path.Combine(assemblyFolder, "FamilyData.xml");
+            //if (!File.Exists(xmlFileName))
+            //{
+            //    XmlWriter writer = XmlWriter.Create(xmlFileName);
+            //}
+            DownloadDataBase();
             //Create ribbon tab
             string tabName = "Familien Manager";
             a.CreateRibbonTab(tabName);
@@ -107,6 +108,10 @@ namespace RevitFamilyManager
             buttonUpdateDb.ToolTip = "UpdateDB";
             buttonUpdateDb.LargeImage = GetImage(Resources.UpdateDB.GetHbitmap());
 
+            //16 Create Type Projects ----/Developer tool for Web Application
+            PushButtonData buttonCreateProjects = new PushButtonData("ProjectCreator", "CreateProject", path, "RevitFamilyManager.Data.ProjectCreator");
+            buttonCreateProjects.ToolTip = "Create Projects From Family Type";
+
 
             //Create ribbon panel
             RibbonPanel toolPanel = a.CreateRibbonPanel(tabName, "Familien Kategorien");
@@ -130,13 +135,15 @@ namespace RevitFamilyManager
             toolPanel.AddItem(buttonPhone);
             toolPanel.AddSeparator();
 
-            toolPanel.AddItem(buttonCableTrayFittings);
+            // toolPanel.AddItem(buttonCableTrayFittings);
             toolPanel.AddItem(buttonGenericModels);
-            toolPanel.AddItem(buttonAnnotation);
+            //toolPanel.AddItem(buttonAnnotation);
 
-            RibbonPanel settingsPanel = a.CreateRibbonPanel(tabName, "Einstellungen");
-            settingsPanel.AddItem(buttonSettings);
-            settingsPanel.AddItem(buttonUpdateDb);
+            //----Dev Tools---
+            //RibbonPanel settingsPanel = a.CreateRibbonPanel(tabName, "Einstellungen");
+            //settingsPanel.AddItem(buttonSettings);
+            //settingsPanel.AddItem(buttonUpdateDb);
+            //settingsPanel.AddItem(buttonCreateProjects);
             #endregion
             //Registering Docking panel
             SingleInstallEvent handler = new SingleInstallEvent();
@@ -144,7 +151,7 @@ namespace RevitFamilyManager
             FamilyManagerDockable dock = new FamilyManagerDockable(exEvent, handler);
             //new FamilyManagerDockable();
             FamilyManagerDockable.WPFpanel = dock;
-            
+
             DockablePaneProviderData data = new DockablePaneProviderData();
             dock.SetupDockablePane(data);
 
@@ -168,5 +175,19 @@ namespace RevitFamilyManager
                 BitmapSizeOptions.FromEmptyOptions());
             return bmSource;
         }
+
+        private void DownloadDataBase()
+        {
+            string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string xmlFileName = Path.Combine(path, "FamilyData.xml");
+
+            string link =
+                @"https://forgefiles.blob.core.windows.net/forgefiles/FamilyData.xml";
+            using (var client = new WebClient())
+            {
+                client.DownloadFile(link, xmlFileName);
+            }
+        }
+
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -57,23 +58,30 @@ namespace RevitFamilyManager
             // ---
 
             List<FamilyTypeData> familyTypes = new List<FamilyTypeData>();
+            //string pathDll = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            //pathDll = pathDll.Substring(0, pathDll.Length - 4);
 
             ListFamilies = listFamilyData;
             foreach (var item in ListFamilies)
             {
                 foreach (var type in item.FamilyTypeDatas)
                 {
+                    //---Update location
+                    //int index = type.Path.IndexOf("HHM");
+                    //type.Path = item.FamilyPath.Substring(index);
+                    //type.Path = Path.Combine(pathDll, item.FamilyPath);
+                    type.Path = item.FamilyPath;
                     type.ImageUri = FindImageUri(type.Name);
                     familyTypes.Add(type);
-                   
                 }
             }
-           
+
             ListFamilyTypes = familyTypes;
             ObservableCollection<FamilyTypeData> collectionFamilyTypes = new ObservableCollection<FamilyTypeData>(familyTypes);
             FamiliesDataGrid.RowBackground = Brushes.WhiteSmoke;
             FamiliesDataGrid.ItemsSource = collectionFamilyTypes;
             GetInstallationMedium();
+            DataSort();
         }
 
         #region Filters Methods
@@ -132,7 +140,7 @@ namespace RevitFamilyManager
             {
                 installationMediumCategories.Add(item.InstallationMedium);
                 installationMediumCategories = installationMediumCategories.Distinct().ToList();
-                this.ComboBoxInstallationMedium.ItemsSource = installationMediumCategories;
+                ComboBoxInstallationMedium.ItemsSource = installationMediumCategories;
             }
         }
 
@@ -194,6 +202,7 @@ namespace RevitFamilyManager
             ObservableCollection<FamilyTypeData> fd = new ObservableCollection<FamilyTypeData>(filteredList);
 
             FamiliesDataGrid.ItemsSource = fd;
+            DataSort();
         }
 
         #region Filter Button Action
@@ -201,7 +210,6 @@ namespace RevitFamilyManager
         // --- Installation Medium ---
         private void ComboBoxInstallationMedium_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-           
             FilterFamily();
         }
         // --- UP ---
@@ -259,7 +267,7 @@ namespace RevitFamilyManager
             FilterFamily();
         }
         #endregion
-        
+
         private string FileNameCut(string file)
         {
             int lastSlash = file.LastIndexOf("\\", StringComparison.Ordinal);
@@ -297,6 +305,7 @@ namespace RevitFamilyManager
         {
             if (FamiliesDataGrid.Items.Count <= 0) return;
             var instance = this.FamiliesDataGrid.SelectedItem as FamilyTypeData;
+            // MessageBox.Show(instance.Path);//-----------------------------------------------------------
             if (instance != null)
             {
                 SetProperty(instance);
@@ -310,7 +319,7 @@ namespace RevitFamilyManager
             var imageNames = Directory.GetFiles(Path.Combine(assemblyFolder, "Images"));
             foreach (var item in imageNames)
             {
-                if (item.Contains(typeName) && item.Contains("32") && !item.Contains("dark"))
+                if (item.Contains(typeName) && item.Contains("64") && !item.Contains("dark"))
                 {
                     uri = new Uri(item);
                 }
@@ -320,6 +329,14 @@ namespace RevitFamilyManager
                 }
             }
             return uri;
+        }
+
+        private void DataSort()
+        {
+            FamiliesDataGrid.Items.SortDescriptions.Clear();
+            FamiliesDataGrid.Items.SortDescriptions.Add(new SortDescription("InstallationMedium", ListSortDirection.Ascending));
+            FamiliesDataGrid.Items.SortDescriptions.Add(new SortDescription("Description", ListSortDirection.Ascending));
+            FamiliesDataGrid.Items.Refresh();
         }
     }
 }

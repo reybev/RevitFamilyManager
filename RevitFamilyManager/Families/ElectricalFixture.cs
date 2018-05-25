@@ -18,7 +18,7 @@ namespace RevitFamilyManager.Families
 
         public ElectricalFixture()
         {
-            CategoryName = "Elektrische Ausstattung";
+            CategoryName = "Elektroinstallationen";
         }
 
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)

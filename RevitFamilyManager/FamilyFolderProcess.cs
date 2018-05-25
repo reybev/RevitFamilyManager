@@ -3,9 +3,13 @@ using RevitFamilyManager.Data;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using System.Reflection;
+using System.Windows;
 using System.Xml;
+using System.Xml.Schema;
 using System.Xml.Serialization;
+using Autodesk.Revit.DB;
 
 namespace RevitFamilyManager
 {
@@ -78,35 +82,48 @@ namespace RevitFamilyManager
 
         private List<FamilyData> ReadXML()
         {
-            string assemblyFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            string xmlFileName = Path.Combine(assemblyFolder, "FamilyData.xml");
+            string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string xmlFileName = Path.Combine(path, "FamilyData.xml");
+            
+            XmlReaderSettings settings = new XmlReaderSettings();
+            settings.DtdProcessing = DtdProcessing.Parse;
+            settings.ValidationType = ValidationType.DTD;
 
             XmlSerializer serializer = new XmlSerializer(typeof(List<FamilyData>));
             FileStream fs = new FileStream(xmlFileName, FileMode.Open);
-            XmlReader reader = XmlReader.Create(fs);
+            XmlReader reader = XmlReader.Create(fs, settings);
 
             var familyList = (List<FamilyData>)serializer.Deserialize(reader);
             fs.Close();
+            string pathDll = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            pathDll = pathDll.Substring(0, pathDll.Length - 4);
+            //TODO
+           
+            foreach (var item in familyList)
+            {
+                if (item != null)
+                {
+                    int index = item.FamilyPath.IndexOf("HHM");
+                    item.FamilyPath = item.FamilyPath.Substring(index);
+                    item.FamilyPath = Path.Combine(pathDll, item.FamilyPath);
+                    //MessageBox.Show(item.FamilyPath);
+                    //-----------------------------------------------------------------------TODO
+                }
+            }
             return familyList;
         }
 
         public List<FamilyData> GetCategoryTypes(string categoryName)
         {
-            string temp = string.Empty;
             List<FamilyData> filteredList = new List<FamilyData>();
             foreach (var item in ReadXML())
             {
-                if (item != null)
+                if (item == null) continue;
+                if (item.Category == categoryName)
                 {
-                    if (item.Category == categoryName)
-                    {
-                        filteredList.Add(item);
-                        temp += item.Category + " || " + item.FamilyName + "\n";
-                    }
+                    filteredList.Add(item);
                 }
             }
-
-            //TaskDialog.Show("Filtered", temp);
             return filteredList;
         }
 

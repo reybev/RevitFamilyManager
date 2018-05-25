@@ -18,6 +18,7 @@ namespace RevitFamilyManager.Data
         public string InstallationMedium { get; set; }
         public string Path { get; set; }
         public string Image { get; set; }
+        public string CombinedTypeData { get; set; }
         [XmlIgnore]
         public Uri ImageUri { get; set; }
 

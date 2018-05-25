@@ -8,12 +8,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="300"
     d:DesignWidth="500"
-    Background="WhiteSmoke"
+    Background="#f0f0f0"
     mc:Ignorable="d">
 
 
     <UserControl.Resources>
-        <Style x:Key="Body_Content_DataGrid_Centering" TargetType="{x:Type DataGridCell}">
+        <Style x:Key="BodyContentDataGridCentering" TargetType="{x:Type DataGridCell}">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type DataGridCell}">
@@ -23,7 +23,14 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-            <Setter Property="FontSize" Value="12pt" />
+            <Setter Property="ToolTip" Value="{Binding CombinedTypeData}" />
+            <Setter Property="FontSize" Value="10pt" />
+            <Setter Property="Background" Value="White" />
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="SteelBlue" />
+                </Trigger>
+            </Style.Triggers>
         </Style>
         <Style
             x:Key="ToggleButtonStyle"
@@ -32,7 +39,7 @@
             <Setter Property="FontSize" Value="14" />
             <Setter Property="Width" Value="21" />
             <Setter Property="Height" Value="21" />
-            <Setter Property="Background" Value="DodgerBlue" />
+            <Setter Property="Background" Value="SteelBlue" />
             <Setter Property="Foreground" Value="White" />
             <Setter Property="Height" Value="22" />
             <Setter Property="BorderThickness" Value="1" />
@@ -48,7 +55,7 @@
 
                                     <Condition Property="IsChecked" Value="False" />
                                 </MultiTrigger.Conditions>
-                                <Setter Property="Background" Value="CornflowerBlue" />
+                                <Setter Property="Background" Value="SteelBlue" />
 
                             </MultiTrigger>
                             <MultiTrigger>
@@ -57,7 +64,7 @@
                                     <Condition Property="IsChecked" Value="True" />
                                 </MultiTrigger.Conditions>
                                 <!--<Setter Property="FontWeight" Value="Bold" />-->
-                                <Setter Property="Background" Value="MediumSeaGreen" />
+                                <Setter Property="Background" Value="LimeGreen" />
 
                             </MultiTrigger>
                         </ControlTemplate.Triggers>
@@ -85,8 +92,7 @@
 
     <Grid x:Name="GridFilters">
         <Grid.RowDefinitions>
-            <RowDefinition Height="28px" />
-            <RowDefinition Height="28px" />
+            <RowDefinition Height="30px" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -104,26 +110,29 @@
         <Label
             x:Name="CategoryTitle"
             Grid.Column="0"
-            Width="60"
+            Width="64"
             HorizontalAlignment="Left"
-            Content="Category: " />
+            VerticalContentAlignment="Center"
+            Content="Kategorie: " />
 
-        <Label
+        <ToggleButton
             x:Name="CategoryName"
-            Grid.Row="0"
             Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Width="Auto"
             HorizontalAlignment="Left"
-            Content="Test" />
+            Background="SteelBlue"
+            Content=" Nicht ausgewählt "
+            Foreground="White"
+            Style="{StaticResource ToggleButtonStyle}" />
 
-        <Label
+        <!--<Label
             x:Name="Filters"
-            Grid.Row="1"
             Grid.Column="2"
-            Content="Filter:" />
+            Content="Filter:" />-->
 
         <ToggleButton
             x:Name="BtnOverheadFilter"
-            Grid.Row="1"
             Grid.Column="3"
             HorizontalAlignment="Left"
             Checked="BtnOverheadFilter_Checked"
@@ -133,7 +142,6 @@
 
         <ToggleButton
             x:Name="BtnRecessedFilter"
-            Grid.Row="1"
             Grid.Column="4"
             HorizontalAlignment="Left"
             Checked="BtnRecessedFilter_Checked"
@@ -143,7 +151,6 @@
 
         <ToggleButton
             x:Name="BtnCeilingFilter"
-            Grid.Row="1"
             Grid.Column="5"
             Margin="3,3,0,3"
             HorizontalAlignment="Left"
@@ -154,7 +161,6 @@
 
         <ToggleButton
             x:Name="BtnWallFilter"
-            Grid.Row="1"
             Grid.Column="6"
             HorizontalAlignment="Center"
             Checked="BtnWallFilter_Checked"
@@ -164,7 +170,6 @@
 
         <ToggleButton
             x:Name="BtnFloorFilter"
-            Grid.Row="1"
             Grid.Column="7"
             HorizontalAlignment="Center"
             Checked="BtnFloorFilter_Checked"
@@ -174,7 +179,6 @@
 
         <ComboBox
             Name="ComboBoxInstallationMedium"
-            Grid.Row="1"
             Grid.Column="8"
             Width="130"
             Height="22px"
@@ -187,15 +191,15 @@
 
         <DataGrid
             x:Name="FamiliesDataGrid"
-            Grid.Row="2"
+            Grid.Row="1"
             Grid.Column="0"
             Grid.ColumnSpan="9"
             MaxHeight="800"
             VerticalContentAlignment="Center"
             AutoGenerateColumns="False"
-            Background="WhiteSmoke"
+            Background="White"
             BorderThickness="0"
-            CellStyle="{StaticResource Body_Content_DataGrid_Centering}"
+            CellStyle="{StaticResource BodyContentDataGridCentering}"
             EnableColumnVirtualization="false"
             EnableRowVirtualization="false"
             IsReadOnly="True"
@@ -208,21 +212,21 @@
             <DataGrid.Columns>
                 <DataGridTemplateColumn
                     Width="40"
-                    MinWidth="32"
-                    MaxWidth="40"
+                    MinWidth="42"
+                    MaxWidth="42"
                     Header="Bild">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Image
-                                Width="35"
-                                MaxWidth="35"
+                                Width="42"
+                                MaxWidth="42"
                                 Source="{Binding (data:FamilyTypeData.ImageUri)}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTextColumn
                     Width="*"
-                    Binding="{Binding Description}"
+                    Binding="{Binding CombinedTypeData}"
                     Header="Beschreibung" />
                 <DataGridTextColumn
                     Width="55"
@@ -261,8 +265,6 @@
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
             </DataGrid.Columns>
-
         </DataGrid>
-
     </Grid>
 </UserControl>

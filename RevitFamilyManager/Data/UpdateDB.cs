@@ -113,7 +113,8 @@ namespace RevitFamilyManager.Data
                             MountType = string.IsNullOrEmpty(type.AsString(paramMountType))? " --- ": type.AsString(paramMountType),
                             Placement = string.IsNullOrEmpty(type.AsString(paramPlacement))? " --- " :type.AsString(paramPlacement),
                             InstallationMedium = string.IsNullOrEmpty(type.AsString(paramInstallationMedium)) ? " --- " : type.AsString(paramInstallationMedium),
-                            Path = path
+                            Path = path,
+                            CombinedTypeData = type.AsString(paramDescription) + "\n" + type.Name
                         };
                         types.Add(typeData);
                     }
@@ -132,31 +133,18 @@ namespace RevitFamilyManager.Data
         private void WriteToXML(List<FamilyData> item)
         {
             XmlSerializer ser = new XmlSerializer(typeof(List<FamilyData>));
+
             string assemblyFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            string xmlFileName = Path.Combine(assemblyFolder, "FamilyData.xml");
-            TextWriter writer = new StreamWriter(xmlFileName);
-            ser.Serialize(writer, item);
-            writer.Close();
+            string xmlFileNameLocal = Path.Combine(assemblyFolder, "FamilyData.xml");
+            TextWriter writerLocal = new StreamWriter(xmlFileNameLocal);
+            ser.Serialize(writerLocal, item);
+            writerLocal.Close();
+
+            //string serverPath = "C:/Users/user/HHM/Deployment - Entwicklung/FamilyManager";
+            //string xmlFileNameServer = Path.Combine(serverPath, "FamilyData.xml");
+            //TextWriter writerServer = new StreamWriter(xmlFileNameServer);
+            //ser.Serialize(writerServer, item);
+            //writerServer.Close();
         }
-
-        private void ReadXML()
-        {
-            string assemblyFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            string xmlFileName = Path.Combine(assemblyFolder, "FamilyData.xml");
-
-            XmlSerializer serializer = new XmlSerializer(typeof(List<FamilyData>));
-            FileStream fs = new FileStream(xmlFileName, FileMode.Open);
-            XmlReader reader = XmlReader.Create(fs);
-
-            List<FamilyData> familyList;
-
-            familyList = (List<FamilyData>) serializer.Deserialize(reader);
-            fs.Close();
-
-            TaskDialog.Show("Readed Data" , familyList[0].FamilyName + "||" + familyList[0].FamilyTypeDatas.Count);
-
-        }
-
-       
     }
 }

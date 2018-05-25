@@ -80,6 +80,7 @@
     <Compile Include="App.cs" />
     <Compile Include="Data\FamilyData.cs" />
     <Compile Include="Data\FamilyTypeData.cs" />
+    <Compile Include="Data\ProjectCreator.cs" />
     <Compile Include="Data\UpdateDB.cs" />
     <Compile Include="Families\Annotation.cs" />
     <Compile Include="Families\CableTrayFitting.cs" />
