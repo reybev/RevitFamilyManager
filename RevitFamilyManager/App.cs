@@ -93,11 +93,27 @@ namespace RevitFamilyManager
             buttonCableTrayFittings.ToolTip = "Shows telephon devices families";
             buttonCableTrayFittings.LargeImage = GetImage(Resources.Kabeltrassenformteil.GetHbitmap());
 
-            //13 GenericModels - Allgemeines Modell
+            //13 Earthing - Erdung
+            PushButtonData buttonEarthing = new PushButtonData("Erdung", "Erdung", path, "RevitFamilyManager.Families.Earthing");
+            buttonEarthing.ToolTip = "Shows earthing families";
+            buttonEarthing.LargeImage = GetImage(Resources.Erdnung.GetHbitmap());
+
+            //14 GenericModels - Allgemeines Modell
             PushButtonData buttonGenericModels = new PushButtonData("Allgemeines Modell", "Allgemeines\nModell", path, "RevitFamilyManager.Families.GenericModels");
             buttonGenericModels.ToolTip = "User Preferences";
             buttonGenericModels.LargeImage = GetImage(Resources.GenericModels.GetHbitmap());
 
+            //15 Legend - Legende
+            PushButtonData buttonLegend = new PushButtonData("Legende", "Legende", path, "RevitFamilyManager.Families.Legend");
+            buttonLegend.ToolTip = "Legend families";
+            buttonLegend.LargeImage = GetImage(Resources.Legende.GetHbitmap());
+
+            //15 Cable Trays - Kabeltrassen
+            PushButtonData buttonCables = new PushButtonData("Kabeltrassen", "Kabeltrassen", path, "RevitFamilyManager.Families.CableTrays");
+            buttonCables.ToolTip = "Cable trays families";
+            buttonCables.LargeImage = GetImage(Resources.Kabeltrasse.GetHbitmap());
+
+            //---------------------------------------------------------------------
             //14 Settings
             PushButtonData buttonSettings = new PushButtonData("Settings", "Familien Ordner", path, "RevitFamilyManager.UserSettings");
             buttonSettings.ToolTip = "User Preferences";
@@ -119,6 +135,7 @@ namespace RevitFamilyManager
             //Add buttons to panel
             toolPanel.AddItem(buttonElectricalFixture);
             toolPanel.AddItem(buttonElectroinstallation);
+            toolPanel.AddItem(buttonCables);
             toolPanel.AddSeparator();
 
             toolPanel.AddItem(buttonLighting);
@@ -127,23 +144,31 @@ namespace RevitFamilyManager
 
             toolPanel.AddItem(buttonCommunication);
             toolPanel.AddItem(buttonData);
-            toolPanel.AddItem(buttonFireAlarm);
+            toolPanel.AddItem(buttonPhone);
             toolPanel.AddSeparator();
 
             toolPanel.AddItem(buttonNurseCall);
             toolPanel.AddItem(buttonSecurity);
-            toolPanel.AddItem(buttonPhone);
+            toolPanel.AddItem(buttonFireAlarm);
+            toolPanel.AddItem(buttonEarthing);
+            
             toolPanel.AddSeparator();
-
+            
             // toolPanel.AddItem(buttonCableTrayFittings);
             toolPanel.AddItem(buttonGenericModels);
             //toolPanel.AddItem(buttonAnnotation);
+            toolPanel.AddItem(buttonLegend);
 
+            ///////////////////////////////////////////////
             //----Dev Tools---
+            //////////////////////////////////////////////
+
             //RibbonPanel settingsPanel = a.CreateRibbonPanel(tabName, "Einstellungen");
             //settingsPanel.AddItem(buttonSettings);
             //settingsPanel.AddItem(buttonUpdateDb);
             //settingsPanel.AddItem(buttonCreateProjects);
+
+            //////////////////////////////////////////////
             #endregion
             //Registering Docking panel
             SingleInstallEvent handler = new SingleInstallEvent();
@@ -178,15 +203,15 @@ namespace RevitFamilyManager
 
         private void DownloadDataBase()
         {
-            string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            string xmlFileName = Path.Combine(path, "FamilyData.xml");
+            //string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            //string xmlFileName = Path.Combine(path, "FamilyData.xml");
 
-            string link =
-                @"https://forgefiles.blob.core.windows.net/forgefiles/FamilyData.xml";
-            using (var client = new WebClient())
-            {
-                client.DownloadFile(link, xmlFileName);
-            }
+            //string link =
+            //    @"https://forgefiles.blob.core.windows.net/forgefiles/FamilyData.xml";
+            //using (var client = new WebClient())
+            //{
+            //    client.DownloadFile(link, xmlFileName);
+            //}
         }
 
     }

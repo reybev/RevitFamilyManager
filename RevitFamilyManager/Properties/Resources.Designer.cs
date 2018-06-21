@@ -113,6 +113,16 @@ namespace RevitFamilyManager.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Erdnung {
+            get {
+                object obj = ResourceManager.GetObject("Erdnung", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap GenericModels {
             get {
                 object obj = ResourceManager.GetObject("GenericModels", resourceCulture);
@@ -146,6 +156,16 @@ namespace RevitFamilyManager.Properties {
         internal static System.Drawing.Bitmap Kommunication {
             get {
                 object obj = ResourceManager.GetObject("Kommunication", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Legende {
+            get {
+                object obj = ResourceManager.GetObject("Legende", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

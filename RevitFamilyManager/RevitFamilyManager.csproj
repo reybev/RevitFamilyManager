@@ -84,13 +84,16 @@
     <Compile Include="Data\UpdateDB.cs" />
     <Compile Include="Families\Annotation.cs" />
     <Compile Include="Families\CableTrayFitting.cs" />
+    <Compile Include="Families\CableTrays.cs" />
     <Compile Include="Families\Communication.cs" />
     <Compile Include="Families\Data.cs" />
     <Compile Include="Families\Descriptions.cs" />
+    <Compile Include="Families\Earthing.cs" />
     <Compile Include="Families\ElectricalFixture.cs" />
     <Compile Include="Families\Electroinstallation.cs" />
     <Compile Include="Families\FireAlarm.cs" />
     <Compile Include="Families\GenericModels.cs" />
+    <Compile Include="Families\Legend.cs" />
     <Compile Include="Families\Lighting.cs" />
     <Compile Include="Families\LightingFixture.cs" />
     <Compile Include="Families\NurceCall.cs" />
@@ -3248,6 +3251,8 @@
     <Resource Include="FamilyTypeImages\M_Leerrohr - Reduzierstück Buchse - PVC - Standard-1651318-HHM Familienübersicht32_dark.PNG" />
     <Resource Include="FamilyTypeImages\M_Leerrohr - Reduzierstück Buchse - PVC - Standard-1651318-HHM Familienübersicht64.PNG" />
     <Resource Include="FamilyTypeImages\M_Leerrohr - Reduzierstück Buchse - PVC - Standard-1651318-HHM Familienübersicht64_dark.PNG" />
+    <Content Include="Resources\Erdnung.png" />
+    <Content Include="Resources\Legende.png" />
     <Content Include="Resources\Ookii.Dialogs.Wpf.dll" />
     <None Include="Resources\UpdateDB.png" />
     <Resource Include="Resources\RevitLogo.png" />

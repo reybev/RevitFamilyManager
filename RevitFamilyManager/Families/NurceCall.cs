@@ -12,16 +12,20 @@ namespace RevitFamilyManager.Families
     {
 
         private string CategoryName { get; set; }
+        private string ExtraCategory { get; set; }
 
         public NurceCall()
         {
             CategoryName = "Notrufgeräte";
+            ExtraCategory = "Krankruf";
         }
 
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
             FamilyFolderProcess folderProcess = new FamilyFolderProcess();
             List<FamilyData> familyData = folderProcess.GetCategoryTypes(CategoryName);
+            List<FamilyData> extraFamilyData = folderProcess.GetCategoryTypes(ExtraCategory);
+            familyData.AddRange(extraFamilyData);
             SetPanelData(commandData, familyData);
             return Result.Succeeded;
         }

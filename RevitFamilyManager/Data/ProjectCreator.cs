@@ -48,7 +48,7 @@ namespace RevitFamilyManager.Data
                 }
                 catch (Exception e)
                 {
-                    TaskDialog.Show("File not created", Type.Name);
+                    TaskDialog.Show("File not created", Type.Name + e.Message);
                 }
                 
             }

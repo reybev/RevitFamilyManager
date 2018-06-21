@@ -19,6 +19,19 @@ namespace RevitFamilyManager.Data
         public string Path { get; set; }
         public string Image { get; set; }
         public string CombinedTypeData { get; set; }
+        public string Diameter { get; set; }
+        public string Width { get; set; }
+        public string Hight { get; set; }
+        public string Depth { get; set; }
+        public string eBKP_H { get; set; }
+        public string BKP { get; set; }
+        public string Manufacturer { get; set; }
+        public string Product { get; set; }
+        public string ProductNumber { get; set; }
+        public string E_Number { get; set; }
+        public string RevitCategory { get; set; }
+        public string OmniClass { get; set; }
+
         [XmlIgnore]
         public Uri ImageUri { get; set; }
 

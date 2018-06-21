@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -16,6 +17,7 @@ namespace RevitFamilyManager.Data
     [Transaction(TransactionMode.Manual)]
     class UpdateDB : IExternalCommand
     {
+        private const string emptyParameter = " --- ";
         public List<FamilyData> Families { get; set; }
 
         public UpdateDB()
@@ -33,9 +35,11 @@ namespace RevitFamilyManager.Data
             //TaskDialog.Show("Database Update", "It may take up to 5 minutes for Data Base update");
             FamilyFolderProcess folderProcess = new FamilyFolderProcess();
             string[] allPaths = Directory.GetDirectories(Properties.Settings.Default.RootFolder);
+            
            
             foreach (var path in allPaths)
             {
+                
                 var devicesList = folderProcess.GetFamilyData(path);
                 Families.AddRange(devicesList);
             }
@@ -89,32 +93,202 @@ namespace RevitFamilyManager.Data
                     trans.Start();
                     familyManager.CurrentType = iterator.Current as FamilyType;
                     FamilyType type = familyManager.CurrentType;
-                    
-                    FamilyParameter paramDescription;
-                    if (familyManager.get_Parameter("Beschreibung") == null)
-                    {
-                        paramDescription = familyManager.get_Parameter("Description");
-                    }
-                    else
-                    {
-                        paramDescription = familyManager.get_Parameter("Beschreibung");//Description
-                    }
-                   
-                    FamilyParameter paramMountType = familyManager.get_Parameter("Installationsart");
-                    FamilyParameter paramPlacement = familyManager.get_Parameter("Installationsort");
-                    FamilyParameter paramInstallationMedium = familyManager.get_Parameter("Installations Medium");
 
-                    if (type != null && paramMountType!= null && paramPlacement!= null && paramInstallationMedium!=null)
+                    string paramDescription = string.Empty;
+                    //FamilyParameter paramDescription;
+                    try
+                    {
+                        paramDescription = type.AsString(familyManager.get_Parameter("Description"));
+                        if (string.IsNullOrEmpty(paramDescription))
+                        {
+                            try
+                            {
+                                paramDescription = type.AsString(familyManager.get_Parameter("Beschreibung"));
+                            }
+                            catch (Exception e)
+                            {
+                                Console.WriteLine(e);
+                            }
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                    }
+
+                    string paramMountType = string.Empty;
+                    try
+                    {
+                        paramMountType = type.AsString(familyManager.get_Parameter("Installationsart"));
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                    }
+
+                    string paramPlacement = string.Empty;
+                    try
+                    {
+                        paramPlacement = type.AsString(familyManager.get_Parameter("Installationsort"));
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                    }
+
+                    string paramInstallationMedium = string.Empty;
+                    try
+                    {
+                        paramInstallationMedium = type.AsString(familyManager.get_Parameter("Installations Medium"));
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                    }
+
+                    string paramDiameter = string.Empty;
+                    try
+                    {
+                        paramDiameter = type.AsString(familyManager.get_Parameter("E_Durchmesser"));
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                    }
+
+                    string paramWidth = string.Empty;
+                    try
+                    {
+                         paramWidth = type.AsString(familyManager.get_Parameter("E_Breite"));
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                    }
+
+                    string paramHeight = string.Empty;
+                    try
+                    {
+                        paramHeight = type.AsString(familyManager.get_Parameter("E_Hohe"));
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                    }
+
+                    string paramDepth = string.Empty;
+                    try
+                    {
+                        paramDepth = type.AsString(familyManager.get_Parameter("E_Tiefe"));
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                    }
+
+                    string param_eBKP_H = string.Empty;
+                    try
+                    {
+                        param_eBKP_H = type.AsString(familyManager.get_Parameter("eBKP-H"));
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                    }
+
+                    string paramBKP = string.Empty;
+                    try
+                    {
+                        paramBKP = type.AsString(familyManager.get_Parameter("BKP"));
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                    }
+
+                    string paramManufacturer = string.Empty;
+                    try
+                    {
+                        paramManufacturer = type.AsString(familyManager.get_Parameter("Fabrikat"));
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                    }
+
+                    string paramProduct = string.Empty;
+                    try
+                    {
+                        paramProduct = type.AsString(familyManager.get_Parameter("Produkt"));
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                    }
+
+                    string paramProductNumber = string.Empty;
+                    try
+                    {
+                        paramProductNumber = type.AsString(familyManager.get_Parameter("Produkte-Nr."));
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                    }
+
+                    string paramE_Number = string.Empty;
+                    try
+                    {
+                        paramE_Number = type.AsString(familyManager.get_Parameter("E-Nummer"));
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                    }
+
+                    string paramRevitCategory = String.Empty;
+                    try
+                    {
+                        paramRevitCategory = type.AsString(familyManager.get_Parameter("Revit Kategorie"));
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                    }
+
+                    string paramOmniClass = string.Empty;
+                    try
+                    {
+                        paramOmniClass = type.AsString(familyManager.get_Parameter("OmniClass-Nummer"));
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                    }
+
+                    if (true/*type != null && paramMountType!= null && paramPlacement!= null && paramInstallationMedium!=null*/)
                     {
                         FamilyTypeData typeData = new FamilyTypeData
                         {
                             Name = type.Name,
-                            Description = type.AsString(paramDescription),
-                            MountType = string.IsNullOrEmpty(type.AsString(paramMountType))? " --- ": type.AsString(paramMountType),
-                            Placement = string.IsNullOrEmpty(type.AsString(paramPlacement))? " --- " :type.AsString(paramPlacement),
-                            InstallationMedium = string.IsNullOrEmpty(type.AsString(paramInstallationMedium)) ? " --- " : type.AsString(paramInstallationMedium),
+                            Description = string.IsNullOrEmpty(paramDescription)? emptyParameter: paramDescription,
+                            MountType = string.IsNullOrEmpty(paramMountType)? emptyParameter: paramMountType,
+                            Placement = string.IsNullOrEmpty(paramPlacement)? emptyParameter :paramPlacement,
+                            InstallationMedium = string.IsNullOrEmpty(paramInstallationMedium) ? emptyParameter : paramInstallationMedium,
                             Path = path,
-                            CombinedTypeData = type.AsString(paramDescription) + "\n" + type.Name
+                            CombinedTypeData = paramDescription + "\n" + type.Name,
+                            Diameter = string.IsNullOrEmpty(paramDiameter)? emptyParameter: paramDiameter,
+                            Width = string.IsNullOrEmpty(paramWidth) ? emptyParameter : paramWidth,
+                            Hight = string.IsNullOrEmpty(paramHeight) ? emptyParameter : paramHeight,
+                            Depth = string.IsNullOrEmpty(paramDepth) ? emptyParameter : paramDepth,
+                            eBKP_H = string.IsNullOrEmpty(param_eBKP_H) ? emptyParameter : param_eBKP_H,
+                            BKP = string.IsNullOrEmpty(paramBKP) ? emptyParameter : paramBKP,
+                            Manufacturer = string.IsNullOrEmpty(paramManufacturer) ? emptyParameter : paramManufacturer,
+                            Product = string.IsNullOrEmpty(paramProduct) ? emptyParameter : paramProduct,
+                            ProductNumber = string.IsNullOrEmpty(paramProductNumber) ? emptyParameter : paramProductNumber,
+                            E_Number = string.IsNullOrEmpty(paramE_Number) ? emptyParameter : paramE_Number,
+                            RevitCategory = string.IsNullOrEmpty(paramRevitCategory) ? emptyParameter : paramRevitCategory,
+                            OmniClass = string.IsNullOrEmpty(paramOmniClass) ? emptyParameter : paramOmniClass
                         };
                         types.Add(typeData);
                     }
