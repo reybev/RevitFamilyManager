@@ -292,11 +292,6 @@ namespace RevitFamilyManager.Data
                         };
                         types.Add(typeData);
                     }
-
-                    //TaskDialog.Show("Params", paramDescription.Definition.Name + " * " + type.AsString(paramDescription));
-                    //TaskDialog.Show("Params", paramMountType.Definition.Name + " * " + type.AsString(paramMountType));
-                    //TaskDialog.Show("Params", paramPlacement.Definition.Name + " * " + type.AsString(paramPlacement));
-                    //TaskDialog.Show("Params", paramInstallationMedium.Definition.Name + " * " + type.AsString(paramInstallationMedium));
                     trans.Commit();
                 }
             }
@@ -313,12 +308,6 @@ namespace RevitFamilyManager.Data
             TextWriter writerLocal = new StreamWriter(xmlFileNameLocal);
             ser.Serialize(writerLocal, item);
             writerLocal.Close();
-
-            //string serverPath = "C:/Users/user/HHM/Deployment - Entwicklung/FamilyManager";
-            //string xmlFileNameServer = Path.Combine(serverPath, "FamilyData.xml");
-            //TextWriter writerServer = new StreamWriter(xmlFileNameServer);
-            //ser.Serialize(writerServer, item);
-            //writerServer.Close();
         }
     }
 }
