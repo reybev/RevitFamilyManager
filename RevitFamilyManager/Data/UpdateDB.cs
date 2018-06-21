@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
-using System.Xml.Serialization;
-using Autodesk.Revit.Attributes;
+﻿using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
+using System.Xml.Serialization;
 
 namespace RevitFamilyManager.Data
 {
@@ -32,7 +27,6 @@ namespace RevitFamilyManager.Data
             Autodesk.Revit.ApplicationServices.Application app = uiapp.Application;
             Document doc = uidoc.Document;
 
-            //TaskDialog.Show("Database Update", "It may take up to 5 minutes for Data Base update");
             FamilyFolderProcess folderProcess = new FamilyFolderProcess();
             string[] allPaths = Directory.GetDirectories(Properties.Settings.Default.RootFolder);
             

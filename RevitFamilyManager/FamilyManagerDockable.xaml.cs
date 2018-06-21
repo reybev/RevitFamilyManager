@@ -319,8 +319,8 @@ namespace RevitFamilyManager
             userName = userName.Substring(nameIndex + 1);
 
 
-            string imagesPath = @"C:\Users\" + userName + @"\HHM\Deployment - General\Revit_Firma\2019\Images Family";
-
+            //string imagesPath = @"C:\Users\" + userName + @"\HHM\Deployment - General\Revit_Firma\2019\Images Family";
+            string imagesPath = @"P:\Revit_Firma\2019\Images Family";
 
             string assemblyFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             Uri uri = null;
