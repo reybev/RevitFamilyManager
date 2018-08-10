@@ -26,7 +26,7 @@ namespace RevitFamilyManager
             //}
             DownloadDataBase();
             //Create ribbon tab
-            string tabName = "Familien Manager";
+            string tabName = "ReFaB";
             a.CreateRibbonTab(tabName);
 
             #region Ribbon buttons
@@ -181,7 +181,7 @@ namespace RevitFamilyManager
             dock.SetupDockablePane(data);
 
             DockablePaneId dpId = new DockablePaneId(new Guid("209923d1-7cdc-4a1c-a4ad-1e2f9aae1dc5"));
-            a.RegisterDockablePane(dpId, "Familien Manager", dock);
+            a.RegisterDockablePane(dpId, "ReFaB", dock);
 
             return Result.Succeeded;
         }

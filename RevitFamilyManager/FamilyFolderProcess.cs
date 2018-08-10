@@ -87,10 +87,10 @@ namespace RevitFamilyManager
             //userName = userName.Substring(nameIndex + 1);
 
 
-            //string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            //string xmlFileName = Path.Combine(path, "FamilyData.xml");
+            string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string xmlFileName = Path.Combine(path, "FamilyData.xml");
             //string xmlFileName = @"C:\Users\" + userName + @"\HHM\Deployment - General\Revit_Firma\2019\Database\FamilyData.xml";
-            string xmlFileName = @"P:\Revit_Firma\2019\Database\FamilyData.xml";
+            //string xmlFileName = @"P:\Revit_Firma\2019\Database\FamilyData.xml";
 
             XmlReaderSettings settings = new XmlReaderSettings();
             settings.DtdProcessing = DtdProcessing.Parse;
@@ -103,8 +103,8 @@ namespace RevitFamilyManager
 
             var familyList = (List<FamilyData>)serializer.Deserialize(reader);
             fs.Close();
-            //string pathDll = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            //pathDll = pathDll.Substring(0, pathDll.Length - 4);
+            string pathDll = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            pathDll = pathDll.Substring(0, pathDll.Length - 4);
             //TODO
            
             //string sharepointPath = @"C:\Users\" + userName + @"\HHM\Deployment - General\Revit_Firma\2019\Revit Family\";
@@ -116,7 +116,8 @@ namespace RevitFamilyManager
                 {
                     int index = item.FamilyPath.IndexOf("HHM");
                     item.FamilyPath = item.FamilyPath.Substring(index + 4);
-                    item.FamilyPath = Path.Combine(sharepointPath, item.FamilyPath);
+                    item.FamilyPath = Path.Combine(pathDll, item.FamilyPath);
+                    //item.FamilyPath = Path.Combine(sharepointPath, item.FamilyPath);
                 }
             }
             return familyList;

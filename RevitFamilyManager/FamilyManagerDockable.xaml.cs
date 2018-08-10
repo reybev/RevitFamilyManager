@@ -314,18 +314,17 @@ namespace RevitFamilyManager
 
         private Uri FindImageUri(string typeName)
         {
-            string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
-            int nameIndex = userName.IndexOf(@"\");
-            userName = userName.Substring(nameIndex + 1);
-
-
+            //string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+            //int nameIndex = userName.IndexOf(@"\");
+            //userName = userName.Substring(nameIndex + 1);
+            
             //string imagesPath = @"C:\Users\" + userName + @"\HHM\Deployment - General\Revit_Firma\2019\Images Family";
-            string imagesPath = @"P:\Revit_Firma\2019\Images Family";
+            //string imagesPath = @"P:\Revit_Firma\2019\Images Family";
 
             string assemblyFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             Uri uri = null;
-            //var imageNames = Directory.GetFiles(Path.Combine(assemblyFolder, "Images"));
-            var imageNames = Directory.GetFiles(imagesPath);
+            var imageNames = Directory.GetFiles(Path.Combine(assemblyFolder, "Images"));
+            //var imageNames = Directory.GetFiles(imagesPath);
             foreach (var item in imageNames)
             {
                 if (item.Contains(typeName) && item.Contains("64") && !item.Contains("dark"))
