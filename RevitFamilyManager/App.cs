@@ -2,13 +2,10 @@
 using Autodesk.Revit.UI;
 using RevitFamilyManager.Properties;
 using System;
-using System.IO;
-using System.Net;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Media.Imaging;
-using System.Xml;
-using RevitFamilyManager.Data;
+using Autodesk.Revit.ApplicationServices;
 
 #endregion
 
@@ -18,6 +15,9 @@ namespace RevitFamilyManager
     {
         public Result OnStartup(UIControlledApplication a)
         {
+            ControlledApplication c = a.ControlledApplication;
+            //TaskDialog.Show("Version", c.VersionBuild + " * " + c.VersionName + " * " + c.VersionNumber);
+            Properties.Settings.Default.RevitVersion = c.VersionNumber;
             //string assemblyFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             //string xmlFileName = Path.Combine(assemblyFolder, "FamilyData.xml");
             //if (!File.Exists(xmlFileName))
@@ -26,7 +26,7 @@ namespace RevitFamilyManager
             //}
             DownloadDataBase();
             //Create ribbon tab
-            string tabName = "ReFaB";
+            string tabName = "Familien Browser";
             a.CreateRibbonTab(tabName);
 
             #region Ribbon buttons
@@ -97,7 +97,7 @@ namespace RevitFamilyManager
             PushButtonData buttonEarthing = new PushButtonData("Erdung", "Erdung", path, "RevitFamilyManager.Families.Earthing");
             buttonEarthing.ToolTip = "Shows earthing families";
             buttonEarthing.LargeImage = GetImage(Resources.Erdnung.GetHbitmap());
-
+             
             //14 GenericModels - Allgemeines Modell
             PushButtonData buttonGenericModels = new PushButtonData("Allgemeines Modell", "Allgemeines\nModell", path, "RevitFamilyManager.Families.GenericModels");
             buttonGenericModels.ToolTip = "User Preferences";
@@ -112,6 +112,10 @@ namespace RevitFamilyManager
             PushButtonData buttonCables = new PushButtonData("Kabeltrassen", "Kabeltrassen", path, "RevitFamilyManager.Families.CableTrays");
             buttonCables.ToolTip = "Cable trays families";
             buttonCables.LargeImage = GetImage(Resources.Kabeltrasse.GetHbitmap());
+
+            PushButtonData buttonProjectFamilies = new PushButtonData("Projektfamilien", "Projektfamilien", path, "RevitFamilyManager.Families.ProjectFamilies");
+            buttonProjectFamilies.ToolTip = "Neue Typen im Projekt";
+            buttonProjectFamilies.LargeImage = GetImage(Resources.ProjectFamilies.GetHbitmap());
 
             //---------------------------------------------------------------------
             //14 Settings
@@ -156,8 +160,11 @@ namespace RevitFamilyManager
             
             // toolPanel.AddItem(buttonCableTrayFittings);
             toolPanel.AddItem(buttonGenericModels);
+
+            toolPanel.AddSeparator();
+            toolPanel.AddItem(buttonProjectFamilies);
             //toolPanel.AddItem(buttonAnnotation);
-            toolPanel.AddItem(buttonLegend);
+            //toolPanel.AddItem(buttonLegend);
 
             ///////////////////////////////////////////////
             //----Dev Tools---
@@ -181,7 +188,7 @@ namespace RevitFamilyManager
             dock.SetupDockablePane(data);
 
             DockablePaneId dpId = new DockablePaneId(new Guid("209923d1-7cdc-4a1c-a4ad-1e2f9aae1dc5"));
-            a.RegisterDockablePane(dpId, "ReFaB", dock);
+            a.RegisterDockablePane(dpId, "Familien Browser", dock);
 
             return Result.Succeeded;
         }

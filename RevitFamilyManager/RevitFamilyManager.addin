@@ -2,19 +2,19 @@
 <RevitAddIns>
   <AddIn Type="Command">
     <Text>Command RevitFamilyManager</Text>
-    <Description>Some description for RevitFamilyManager</Description>
+    <Description>Family Catalog that allow to read internal family information and load families into project</Description>
     <Assembly>RevitFamilyManager.dll</Assembly>
     <FullClassName>RevitFamilyManager.Command</FullClassName>
     <ClientId>74ee14aa-0e67-4772-9cfc-58829e9d2910</ClientId>
-    <VendorId>Global 17</VendorId>
-    <VendorDescription>Global 17</VendorDescription>
+    <VendorId>building360.ch</VendorId>
+    <VendorDescription>building360.ch</VendorDescription>
   </AddIn>
   <AddIn Type="Application">
     <Name>Application RevitFamilyManager</Name>
     <Assembly>RevitFamilyManager.dll</Assembly>
     <FullClassName>RevitFamilyManager.App</FullClassName>
     <ClientId>8d54f145-5f7f-4758-9c65-f4a37ac2aeb8</ClientId>
-    <VendorId>Global 17</VendorId>
-    <VendorDescription>Global 17</VendorDescription>
+    <VendorId>building360.ch</VendorId>
+    <VendorDescription>building360.ch</VendorDescription>
   </AddIn>
 </RevitAddIns>

@@ -1,15 +1,11 @@
-﻿using Autodesk.Revit.UI;
-using RevitFamilyManager.Data;
+﻿using RevitFamilyManager.Data;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net;
 using System.Reflection;
 using System.Windows;
 using System.Xml;
-using System.Xml.Schema;
 using System.Xml.Serialization;
-using Autodesk.Revit.DB;
 
 namespace RevitFamilyManager
 {
@@ -105,19 +101,21 @@ namespace RevitFamilyManager
             fs.Close();
             string pathDll = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             pathDll = pathDll.Substring(0, pathDll.Length - 4);
+           
             //TODO
            
             //string sharepointPath = @"C:\Users\" + userName + @"\HHM\Deployment - General\Revit_Firma\2019\Revit Family\";
             string sharepointPath = @"P:\Revit_Firma\2019\Revit Family\";
-
+            string revitVersion = Properties.Settings.Default.RevitVersion;
             foreach (var item in familyList)
             {
                 if (item != null)
                 {
                     int index = item.FamilyPath.IndexOf("HHM");
                     item.FamilyPath = item.FamilyPath.Substring(index + 4);
-                    item.FamilyPath = Path.Combine(pathDll, item.FamilyPath);
-                    //item.FamilyPath = Path.Combine(sharepointPath, item.FamilyPath);
+                    item.FamilyPath = Path.Combine(pathDll, revitVersion, "HHM", item.FamilyPath); // local path in Addin
+                    //MessageBox.Show(item.FamilyPath);
+                    //item.FamilyPath = Path.Combine(sharepointPath, item.FamilyPath); //path on server 
                 }
             }
             return familyList;
@@ -134,6 +132,21 @@ namespace RevitFamilyManager
                     filteredList.Add(item);
                 }
             }
+            return filteredList;
+        }
+
+        public List<FamilyData> GetFamilyTypes(string familyName)
+        {
+            List<FamilyData> filteredList = new List<FamilyData>();
+            foreach (var item in ReadXML())
+            {
+                if (item == null) continue;
+                if (item.FamilyName == familyName)
+                {
+                    filteredList.Add(item);
+                }
+            }
+
             return filteredList;
         }
     }

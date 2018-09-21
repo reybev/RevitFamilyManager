@@ -50,7 +50,6 @@ namespace RevitFamilyManager.Data
                 {
                     TaskDialog.Show("File not created", Type.Name + e.Message);
                 }
-                
             }
         }
 

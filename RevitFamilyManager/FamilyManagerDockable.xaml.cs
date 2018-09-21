@@ -62,19 +62,37 @@ namespace RevitFamilyManager
             //pathDll = pathDll.Substring(0, pathDll.Length - 4);
 
             ListFamilies = listFamilyData;
+
             foreach (var item in ListFamilies)
             {
-                foreach (var type in item.FamilyTypeDatas)
+                if (item.FamilyTypeDatas != null)
                 {
-                    //---Update location
-                    //int index = type.Path.IndexOf("HHM");
-                    //type.Path = item.FamilyPath.Substring(index);
-                    //type.Path = Path.Combine(pathDll, item.FamilyPath);
-                    type.Path = item.FamilyPath;
-                    type.ImageUri = FindImageUri(type.Name);
-                    familyTypes.Add(type);
+                    foreach (var type in item.FamilyTypeDatas)
+                    {
+                        //---Update location
+                        //int index = type.Path.IndexOf("HHM");
+                        //type.Path = item.FamilyPath.Substring(index);
+                        //type.Path = Path.Combine(pathDll, item.FamilyPath);
+                        type.Path = item.FamilyPath;
+                        if (!string.IsNullOrEmpty(type.Path))
+                        {
+                            int indexFamilyFolder = type.Path.LastIndexOf('\\');
+                            string familyName = type.Path.Substring(indexFamilyFolder + 1);
+                            int indexExtension = familyName.IndexOf('.');
+                            familyName = familyName.Substring(0, indexExtension);
+
+                            type.ImageUri = FindImageUri(type.Name, familyName);
+                        }
+                        else
+                        {
+                            type.ImageUri = FindImageUri(type.Name, item.FamilyName);
+                        }
+
+                        familyTypes.Add(type);
+                    }
                 }
             }
+
 
             ListFamilyTypes = familyTypes;
             ObservableCollection<FamilyTypeData> collectionFamilyTypes = new ObservableCollection<FamilyTypeData>(familyTypes);
@@ -195,7 +213,7 @@ namespace RevitFamilyManager
                 filterPlacement.AddRange(FilterPlacement("Boden"));
             }
 
-            filterPlacement.AddRange(FilterPlacement( " --- "));
+            filterPlacement.AddRange(FilterPlacement(" --- "));
 
             var filteredList = filterMount.Intersect(filterPlacement);
             filteredList = filteredList.Intersect(filterInstallationMedium);
@@ -312,28 +330,38 @@ namespace RevitFamilyManager
             }
         }
 
-        private Uri FindImageUri(string typeName)
+        private Uri FindImageUri(string typeName, string familyName)
         {
             //string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
             //int nameIndex = userName.IndexOf(@"\");
             //userName = userName.Substring(nameIndex + 1);
-            
+
             //string imagesPath = @"C:\Users\" + userName + @"\HHM\Deployment - General\Revit_Firma\2019\Images Family";
             //string imagesPath = @"P:\Revit_Firma\2019\Images Family";
 
             string assemblyFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             Uri uri = null;
+
+            //-----Image Folder Building 360
+            int indexAddinFolder = assemblyFolder.LastIndexOf("\\");
+            assemblyFolder = assemblyFolder.Substring(0, indexAddinFolder);
+            //-----
+
             var imageNames = Directory.GetFiles(Path.Combine(assemblyFolder, "Images"));
             //var imageNames = Directory.GetFiles(imagesPath);
             foreach (var item in imageNames)
             {
-                if (item.Contains(typeName) && item.Contains("64") && !item.Contains("dark"))
+                if (!string.IsNullOrEmpty(familyName) && !string.IsNullOrEmpty(typeName))
                 {
-                    uri = new Uri(item);
-                }
-                if (uri == null)
-                {
-                    uri = new Uri("pack://application:,,,/RevitFamilyManager;component/Resources/RevitLogo.png");
+                    if (item.Contains(familyName) && item.Contains(typeName) && item.Contains("64") && !item.Contains("dark"))
+                    {
+                        uri = new Uri(item);
+
+                    }
+                    if (uri == null)
+                    {
+                        uri = new Uri("pack://application:,,,/RevitFamilyManager;component/Resources/RevitLogo.png");
+                    }
                 }
             }
             return uri;

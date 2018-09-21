@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("RevitFamilyManager")]
-[assembly: AssemblyDescription("Revit Add-In Description for RevitFamilyManager")]
+[assembly: AssemblyDescription("Family Catalog that allow to read internal family information and load families into project")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Global 17")]
 [assembly: AssemblyProduct("RevitFamilyManager Revit C# .NET Add-In")]
-[assembly: AssemblyCopyright("Copyright 2018 (C) Roman Lavrov, Global 17")]
+[assembly: AssemblyCopyright("Copyright 2018 (C) building360.ch")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("neutral")]
 

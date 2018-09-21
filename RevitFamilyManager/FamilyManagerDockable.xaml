@@ -28,7 +28,7 @@
             <Setter Property="Background" Value="White" />
             <Style.Triggers>
                 <Trigger Property="IsSelected" Value="True">
-                    <Setter Property="Background" Value="SteelBlue" />
+                    <Setter Property="Background" Value="#0078d7" />
                 </Trigger>
             </Style.Triggers>
         </Style>

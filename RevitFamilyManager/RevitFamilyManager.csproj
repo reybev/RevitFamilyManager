@@ -98,6 +98,7 @@
     <Compile Include="Families\LightingFixture.cs" />
     <Compile Include="Families\NurceCall.cs" />
     <Compile Include="Families\Phone.cs" />
+    <Compile Include="Families\ProjectFamilies.cs" />
     <Compile Include="Families\Security.cs" />
     <Compile Include="FamilyFolderProcess.cs" />
     <Compile Include="FamilyManagerDockable.xaml.cs">
@@ -3256,6 +3257,7 @@
     <Content Include="Resources\Ookii.Dialogs.Wpf.dll" />
     <None Include="Resources\UpdateDB.png" />
     <Resource Include="Resources\RevitLogo.png" />
+    <None Include="Resources\ProjectFamilies.png" />
     <Content Include="RevitFamilyManager.addin">
       <SubType>Designer</SubType>
     </Content>

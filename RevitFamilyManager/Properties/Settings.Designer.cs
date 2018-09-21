@@ -94,5 +94,17 @@ namespace RevitFamilyManager.Properties {
                 this["FamilyName"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string RevitVersion {
+            get {
+                return ((string)(this["RevitVersion"]));
+            }
+            set {
+                this["RevitVersion"] = value;
+            }
+        }
     }
 }
